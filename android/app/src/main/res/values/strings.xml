@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="machine_widget_label">Macchina · anelli</string>
+    <string name="machine_widget_desc">CPU, RAM e disco di una macchina in anelli compatti</string>
+    <string name="machine_bars_widget_label">Macchina · barre</string>
+    <string name="machine_bars_widget_desc">CPU, RAM e disco di una macchina in barre sovrapposte</string>
+    <string name="status_machine_widget_label">Macchina · stato</string>
+    <string name="status_machine_widget_desc">Solo lo stato online/offline di una macchina</string>
+    <string name="fleet_status_widget_label">Flotta · stato</string>
+    <string name="fleet_status_widget_desc">Stato online/offline di più macchine</string>
+    <string name="overall_widget_label">Tutto ok</string>
+    <string name="overall_widget_desc">Un colpo d\'occhio: sono tutte online?</string>
+    <string name="fleet_widget_label">Flotta · barre</string>
+    <string name="fleet_widget_desc">Tutte le macchine, ognuna con nome e tre barre (CPU, RAM, disco)</string>
+</resources>

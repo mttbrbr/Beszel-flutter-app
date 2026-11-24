@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../api.dart';
 import '../monitor.dart';
 import '../storage.dart';
+import '../theme.dart';
 import 'home.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -45,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
-      body: SafeArea(
+      body: AmbientBackground(child: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(28),
@@ -54,9 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Icon(Icons.monitor_heart_rounded, size: 56, color: cs.primary),
+                  const Icon(Icons.monitor_heart_rounded, size: 64, color: Bz.accent),
                   const SizedBox(height: 16),
-                  Text('Beszel', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w700)),
+                  Text('Beszel', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w800)),
                   const SizedBox(height: 6),
                   Text('Connettiti al tuo hub', textAlign: TextAlign.center, style: TextStyle(color: cs.onSurfaceVariant)),
                   const SizedBox(height: 32),
@@ -97,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-      ),
+      )),
     );
   }
 }

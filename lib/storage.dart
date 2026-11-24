@@ -1,9 +1,38 @@
 import 'dart:convert';
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart' show ThemeMode;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'api.dart';
 import 'models.dart';
+
+/// Credentials store: Keystore/Keychain on mobile. On desktop there may be no
+/// unlocked keyring and the native plugin aborts the process, so dev builds
+/// fall back to SharedPreferences (not encrypted).
+class _Secrets {
+  static final _mobile = Platform.isAndroid || Platform.isIOS;
+  final _secure = _mobile ? const FlutterSecureStorage() : null;
+  static const _prefix = 'secret_';
+
+  Future<void> write({required String key, required String? value}) async {
+    if (_secure != null) return _secure.write(key: key, value: value);
+    final p = await SharedPreferences.getInstance();
+    value == null ? await p.remove('$_prefix$key') : await p.setString('$_prefix$key', value);
+  }
+
+  Future<String?> read({required String key}) async {
+    if (_secure != null) return _secure.read(key: key);
+    return (await SharedPreferences.getInstance()).getString('$_prefix$key');
+  }
+
+  Future<void> deleteAll() async {
+    if (_secure != null) return _secure.deleteAll();
+    final p = await SharedPreferences.getInstance();
+    for (final k in p.getKeys().where((k) => k.startsWith(_prefix)).toList()) {
+      await p.remove(k);
+    }
+  }
+}
 
 class Session {
   final String url, email, password;
@@ -12,7 +41,7 @@ class Session {
 }
 
 class Store {
-  static const _secure = FlutterSecureStorage();
+  static final _secure = _Secrets();
 
   static Future<void> saveSession(String url, String email, String password, String token) async {
     await _secure.write(key: 'url', value: url);

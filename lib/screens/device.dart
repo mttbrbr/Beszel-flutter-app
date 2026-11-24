@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../api.dart';
 import '../models.dart';
 import '../storage.dart';
+import '../theme.dart';
 import 'stat_chart.dart';
 
 class DeviceScreen extends StatefulWidget {
@@ -97,7 +98,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
     final s = widget.system;
     return Scaffold(
       appBar: AppBar(title: Text(s.name, style: const TextStyle(fontWeight: FontWeight.w700))),
-      body: r == null
+      body: AmbientBackground(child: r == null
           ? const Center(child: CircularProgressIndicator())
           : ListView(
               padding: const EdgeInsets.all(16),
@@ -126,12 +127,12 @@ class _DeviceScreenState extends State<DeviceScreen> {
                 else if (_points == null)
                   const Padding(padding: EdgeInsets.symmetric(vertical: 40), child: Center(child: CircularProgressIndicator()))
                 else ...[
-                  StatChart(title: 'CPU', unit: '%', points: _points!, range: _range, fixedMax: 100, series: [ChartSeries('', const Color(0xFF2DD4BF), (p) => p.cpu)]),
-                  StatChart(title: 'Memoria', unit: '%', points: _points!, range: _range, fixedMax: 100, series: [ChartSeries('', const Color(0xFF60A5FA), (p) => p.mem)]),
-                  StatChart(title: 'Disco', unit: '%', points: _points!, range: _range, fixedMax: 100, series: [ChartSeries('', const Color(0xFFF59E0B), (p) => p.disk)]),
+                  StatChart(title: 'CPU', unit: '%', points: _points!, range: _range, fixedMax: 100, series: [ChartSeries('', Bz.accent, (p) => p.cpu)]),
+                  StatChart(title: 'Memoria', unit: '%', points: _points!, range: _range, fixedMax: 100, series: [ChartSeries('', Bz.green, (p) => p.mem)]),
+                  StatChart(title: 'Disco', unit: '%', points: _points!, range: _range, fixedMax: 100, series: [ChartSeries('', Bz.orange, (p) => p.disk)]),
                   StatChart(title: 'Rete (MB/s)', unit: '', points: _points!, range: _range, series: [
-                    ChartSeries('↑', const Color(0xFFA78BFA), (p) => p.netUp),
-                    ChartSeries('↓', const Color(0xFF34D399), (p) => p.netDown),
+                    ChartSeries('↑', Bz.purple, (p) => p.netUp),
+                    ChartSeries('↓', Bz.teal, (p) => p.netDown),
                   ]),
                 ],
                 const SizedBox(height: 12),
@@ -152,7 +153,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ],
-            ),
+            )),
     );
   }
 }
@@ -166,22 +167,18 @@ class _Tile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    return Card(
-      color: cs.surfaceContainerHigh,
+    return BzCard(
       margin: const EdgeInsets.only(bottom: 10),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(18, 10, 12, 10),
-        child: Column(children: [
+      padding: const EdgeInsets.fromLTRB(18, 10, 12, 10),
+      child: Column(children: [
           Row(children: [
-            Icon(icon, color: cs.primary),
+            Icon(icon, color: Bz.accent),
             const SizedBox(width: 14),
             Expanded(child: Text(title, style: const TextStyle(fontWeight: FontWeight.w500))),
             child,
           ]),
           if (bottom != null) bottom!,
         ]),
-      ),
     );
   }
 }

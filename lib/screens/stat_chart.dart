@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import '../models.dart';
+import '../theme.dart';
 
 class StatChart extends StatelessWidget {
   final String title;
@@ -46,19 +47,16 @@ class StatChart extends StatelessWidget {
         preventCurveOverShooting: true,
         barWidth: 2.2,
         color: s.color,
-        dotData: const FlDotData(show: false),
+                dotData: const FlDotData(show: false),
         belowBarData: BarAreaData(show: true, color: s.color.withValues(alpha: series.length == 1 ? 0.15 : 0.06)),
       ));
     }
     final top = fixedMax ?? (maxY <= 0 ? 1.0 : maxY * 1.2);
     final last = points.isEmpty ? null : series.first.value(points.last);
 
-    return Card(
-      color: cs.surfaceContainerHigh,
-      margin: const EdgeInsets.only(bottom: 12),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return BzCard(
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
             Expanded(child: Text(title, style: const TextStyle(fontWeight: FontWeight.w600))),
             if (series.length > 1)
@@ -131,7 +129,6 @@ class StatChart extends StatelessWidget {
                   )),
           ),
         ]),
-      ),
     );
   }
 }

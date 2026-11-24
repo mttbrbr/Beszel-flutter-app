@@ -29,6 +29,50 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <receiver android:name=".MachineWidgetProvider" android:exported="false" android:label="@string/machine_widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/machine_widget_info"/>
+        </receiver>
+        <receiver android:name=".MachineBarsWidgetProvider" android:exported="false" android:label="@string/machine_bars_widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/machine_bars_widget_info"/>
+        </receiver>
+        <receiver android:name=".MachineStatusWidgetProvider" android:exported="false" android:label="@string/status_machine_widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/status_machine_widget_info"/>
+        </receiver>
+        <receiver android:name=".FleetStatusWidgetProvider" android:exported="false" android:label="@string/fleet_status_widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/fleet_status_widget_info"/>
+        </receiver>
+        <receiver android:name=".OverallWidgetProvider" android:exported="false" android:label="@string/overall_widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/overall_widget_info"/>
+        </receiver>
+        <receiver android:name=".FleetWidgetProvider" android:exported="false" android:label="@string/fleet_widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/fleet_widget_info"/>
+        </receiver>
+        <activity
+            android:name=".WidgetConfigActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
